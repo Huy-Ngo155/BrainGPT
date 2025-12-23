@@ -2,7 +2,7 @@ BrainGPT: High-Performance Transformer with Rotary Embeddings and Flash-Attentio
 BrainGPT is a specialized Large Language Model (LLM) architecture designed for high-throughput training and extended context handling. This project implements modern Transformer optimizations used in state-of-the-art models to achieve superior memory efficiency and scaling capabilities.
 
 Core Technical Features
-Rotary Positional Embeddings (RoPE): Implements a frequency-based rotation mechanism to capture long-range token dependencies effectively, supporting extended context lengths.
+Rotary Positional Embeddings (RoPE): Implements a frequency-based rotation mechanism to capture long-range token dependencies effectively, supporting extended context lengths up to 32,768 tokens.
 
 Flash-Attention Integration: Supports the flash_attn_qkvpacked_func kernel to reduce attention complexity from O(N 
 2
@@ -34,12 +34,18 @@ Training with DDP
 To launch distributed training on multiple GPUs, use the following command:
 
 Bash
-torchrun --nproc_per_node=[NUM_GPUS] ul.py
+torchrun --nproc_per_node=[NUM_GPUS] braingpt.py
+Single GPU Execution
+
+For standard execution on a single device:
+
+Bash
+python braingpt.py
 Validation and Export
 
-Memory Benchmarking: The system automatically measures peak VRAM usage upon initialization to ensure hardware efficiency.
+Memory Benchmarking: The system automatically measures peak VRAM usage upon initialization via the MemoryProfiler class to ensure hardware efficiency.
 
-ONNX Export: Use the export_model function to generate an optimized brain_model.onnx file with dynamic axes for production deployment.
+ONNX Export: Use the export_model function within the script to generate an optimized brain_model.onnx file with dynamic axes for production deployment.
 
 Project Structure
 RotaryEmbedding: Handles relative positional encoding via complex rotations.
