@@ -1,0 +1,29 @@
+# BrainGPT: High-Performance Transformer with Rotary Embeddings
+
+> **Abstract:** We present BrainGPT, a scalable causal Transformer architecture designed with an emphasis on efficiency, long-context generalization, and deployment readiness. The model integrates Rotary Positional Embeddings (RoPE), explicit key-value (KV) caching for fast autoregressive inference, and optional FlashAttention kernels for memory-efficient training.
+
+## 📄 Technical Paper
+For a detailed architectural analysis and system-level design principles, please refer to the official report:
+* [**Download BrainGPT Technical Paper (PDF)**](BrainGPT_Technical_Paper.pdf)
+
+## Core Technical Features
+* **Rotary Positional Embeddings (RoPE):** Encodes relative positional information via rotations in query/key subspaces, supporting context extrapolation.
+* **Key-Value (KV) Caching:** Reduces inference complexity from quadratic to linear time for efficient decoding.
+* **Flash-Attention Integration:** Leverages optimized kernels to reduce memory consumption and improve throughput.
+
+## Architectural Comparison
+| Component | GPT-2 | LLaMA | **BrainGPT** |
+| :--- | :--- | :--- | :--- |
+| **Positional Encoding** | Absolute | RoPE | **RoPE (dynamic)** |
+| **KV Cache** | No | Yes | **Yes** |
+| **FlashAttention** | No | Yes | **Optional** |
+| **Deployment Export** | No | No | **ONNX-ready** |
+*(Ref: BrainGPT Technical Paper, Table 1)*
+
+## Installation & Usage
+```bash
+# Install dependencies
+pip install torch torchvision torchaudio
+
+# Run model
+python braingpt.py
