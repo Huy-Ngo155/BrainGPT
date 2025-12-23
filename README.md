@@ -1,35 +1,31 @@
-# BrainGPT: High-Performance Transformer with Rotary Embeddings and Flash-Attention
+# BrainGPT: High-Performance Transformer with Rotary Embeddings
 
-BrainGPT is a specialized Large Language Model (LLM) architecture designed for high-throughput training and extended context handling. This project implements modern Transformer optimizations to achieve superior memory efficiency and scaling capabilities.
+> [cite_start]**Abstract:** We present BrainGPT, a scalable causal Transformer architecture designed with an emphasis on efficiency, long-context generalization, and deployment readiness[cite: 1]. [cite_start]The model integrates Rotary Positional Embeddings (RoPE), explicit key-value (KV) caching for fast autoregressive inference, and optional FlashAttention kernels[cite: 1].
+
+## 📄 Technical Paper
+For a detailed architectural analysis and system-level design principles, please refer to the official report:
+* [**Download BrainGPT Technical Paper (PDF)**](BrainGPT_Technical_Paper_pdf.pdf)
 
 ## Core Technical Features
+* [cite_start]**Rotary Positional Embeddings (RoPE):** Encodes positional information via rotations in query and key subspaces, enabling context extrapolation[cite: 1].
+* [cite_start]**Key-Value (KV) Caching:** Reduces inference complexity from quadratic to linear time by maintaining per-layer caches during decoding[cite: 1].
+* [cite_start]**FlashAttention Integration:** Leverages optimized kernels to reduce memory consumption and improve throughput when available[cite: 1].
+* [cite_start]**Deployment Readiness:** Prioritizes modularity and transparency, making it suitable for both research and practical deployment[cite: 1].
 
-* **Rotary Positional Embeddings (RoPE):** Implements a frequency-based rotation mechanism to capture long-range token dependencies effectively, supporting context lengths up to 32,768 tokens.
-* **Flash-Attention Integration:** Supports the `flash_attn_qkvpacked_func` kernel to reduce attention complexity from $O(N^2)$ to $O(N)$, significantly optimizing VRAM usage on compatible GPUs.
-* **Distributed Data Parallel (DDP):** Fully compatible with `torch.distributed` for multi-GPU training environments, ensuring seamless model scaling.
-* **Memory Profiling:** Includes a built-in `MemoryProfiler` class to monitor peak VRAM allocation and system resources during execution.
+## Architectural Comparison
+| Component | GPT-2 | LLaMA | **BrainGPT** |
+| :--- | :--- | :--- | :--- |
+| **Positional Encoding** | Absolute | RoPE | **RoPE (dynamic)** |
+| **KV Cache** | No | Yes | **Yes** |
+| **FlashAttention** | No | Yes | **Optional** |
+| **Long Context** | Limited | Strong | **Strong** |
+| **Deployment Export** | No | No | **ONNX-ready** |
+[cite_start]*(Ref: BrainGPT Technical Paper, Table 1)* [cite: 1]
 
-## Model Specifications
-
-| Parameter | Value |
-| :--- | :--- |
-| **Maximum Sequence Length** | 2,048 (Default) |
-| **Vocabulary Size** | 50,000 |
-| **Embedding Dimension** | 768 |
-| **Transformer Layers** | 12 |
-| **Attention Heads** | 12 |
-
-## Installation
-
-Ensure you have a CUDA-capable environment and the following dependencies installed:
-
+## Installation & Usage
 ```bash
+# Install core dependencies
 pip install torch torchvision torchaudio
-# Optional: Install Flash Attention for hardware acceleration
-pip install flash-attn --no-build-isolation
-## Usage and Testing
 
-### Training with DDP
-To launch distributed training on multiple GPUs:
-```bash
-torchrun --nproc_per_node=[NUM_GPUS] braingpt.py
+# Run model
+python braingpt.py
