@@ -1,0 +1,42 @@
+# BrainGPT: High-Performance Transformer with Rotary Embeddings and Flash-Attention
+
+> **Abstract:** We present BrainGPT, a scalable causal Transformer architecture designed with an emphasis on efficiency, long-context generalization, and deployment readiness. [cite_start]The model integrates Rotary Positional Embeddings (RoPE), explicit key-value caching for fast autoregressive inference, and optional FlashAttention kernels for memory-efficient training[cite: 1, 6, 7].
+
+## 📄 Technical Paper
+For a detailed architectural analysis, comparison with GPT-2/LLaMA, and system-level design principles, please read our full report:
+* [cite_start][**Download BrainGPT Technical Paper (PDF)**](BrainGPT.pdf) 
+
+## Core Technical Features
+* [cite_start]**Rotary Positional Embeddings (RoPE):** Encodes relative positional information via complex rotations in query/key subspaces, enabling extrapolation beyond training context[cite: 1, 26, 27].
+* [cite_start]**Key-Value (KV) Caching:** Maintains per-layer caches to reduce inference complexity from quadratic to linear time, ensuring fast autoregressive decoding[cite: 1, 29, 30].
+* [cite_start]**Flash-Attention Integration:** Leverages specialized kernels to reduce memory consumption and improve throughput on compatible hardware[cite: 1, 31, 32].
+* [cite_start]**Deployment Readiness:** Features built-in ONNX export with dynamic axes and integrated memory profiling[cite: 1, 38, 43].
+
+## Architectural Comparison
+| Component | GPT-2 | LLaMA | **BrainGPT** |
+| :--- | :--- | :--- | :--- |
+| **Positional Encoding** | Absolute | RoPE | **RoPE (dynamic)** |
+| **KV Cache** | No | Yes | **Yes** |
+| **FlashAttention** | No | Yes | **Optional** |
+| **Deployment Export** | No | No | **ONNX-ready** |
+[cite_start]*(Ref: BrainGPT Technical Paper, Table 1)* [cite: 1, 38, 39]
+
+## Model Specifications
+| Parameter | Value |
+| :--- | :--- |
+| **Maximum Sequence Length** | 2,048 (Default) |
+| **Vocabulary Size** | 50,000 |
+| **Embedding Dimension** | 768 |
+| **Transformer Layers** | 12 |
+| **Attention Heads** | 12 |
+
+## Installation & Usage
+```bash
+# Install dependencies
+pip install torch torchvision torchaudio
+
+# Single GPU Training
+python braingpt.py
+
+# Distributed Training (DDP)
+torchrun --nproc_per_node=[NUM_GPUS] braingpt.py
