@@ -27,3 +27,9 @@ Ensure you have a CUDA-capable environment and the following dependencies instal
 pip install torch torchvision torchaudio
 # Optional: Install Flash Attention for hardware acceleration
 pip install flash-attn --no-build-isolation
+## Usage and Testing
+
+### Training with DDP
+To launch distributed training on multiple GPUs:
+```bash
+torchrun --nproc_per_node=[NUM_GPUS] braingpt.py
