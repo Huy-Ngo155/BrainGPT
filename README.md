@@ -1,10 +1,10 @@
 # BrainGPT: High-Performance Transformer with Rotary Embeddings
 
-> [cite_start]**Abstract:** We present BrainGPT, a scalable causal Transformer architecture designed with an emphasis on efficiency, long-context generalization, and deployment readiness[cite: 1]. [cite_start]The model integrates Rotary Positional Embeddings (RoPE), explicit key-value (KV) caching for fast autoregressive inference, and optional FlashAttention kernels[cite: 1].
+> **Abstract:** We present BrainGPT, a scalable causal Transformer architecture designed with an emphasis on efficiency, long-context generalization, and deployment readiness[cite: 1]. [cite_start]The model integrates Rotary Positional Embeddings (RoPE), explicit key-value (KV) caching for fast autoregressive inference, and optional FlashAttention kernels[cite: 1].
 
 ## 📄 Technical Paper
 For a detailed architectural analysis and system-level design principles, please refer to the official report:
-* [**Download BrainGPT Technical Paper (PDF)**](BrainGPT_Technical_Paper_pdf.pdf)
+* [**Download BrainGPT Technical Paper (PDF)**](BrainGPT_Technical_Paper.pdf)
 
 ## Core Technical Features
 * [cite_start]**Rotary Positional Embeddings (RoPE):** Encodes positional information via rotations in query and key subspaces, enabling context extrapolation[cite: 1].
